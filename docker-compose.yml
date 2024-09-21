@@ -1,0 +1,17 @@
+version: '3'
+services:
+  app:
+    build:
+      context: ./infra
+      dockerfile: Dockerfile
+    container_name: os-arch-dev
+    volumes:
+      - ./:/app  # Bind mount current directory to /app in the container
+    ports:
+      - "8080:8080"  # Forward port 8080 (modify as needed)
+    environment:
+      - PYTHONPATH=/app  # Set Python path if needed
+      - GOROOT=/usr/local/go  # Set Go root if needed
+      - GOPATH=/app  # Set Go path if needed
+    stdin_open: true  # Keep stdin open for interactive use
+    tty: true         # Allocate a pseudo-TTY for container
