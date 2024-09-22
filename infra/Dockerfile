@@ -3,6 +3,7 @@ FROM --platform=linux/arm64 ubuntu:20.04
 
 # Install dependencies for Go and Python
 # psmiscはpstreeを使えるようにするため
+# man-dbはmanコマンドを使用できるようにするため
 RUN apt-get update && apt-get install -y \
     curl \
     build-essential \
@@ -14,6 +15,8 @@ RUN apt-get update && apt-get install -y \
     wget \
     libc6 \
     psmisc \
+    vim \
+    man-db \
     && rm -rf /var/lib/apt/lists/*
 
 # Install Go
@@ -26,6 +29,10 @@ ENV PATH="/usr/local/go/bin:${PATH}"
 
 # Create a working directory
 WORKDIR /app
+
+# Ref: https://qiita.com/ssc-ynakamura/items/d69307a3d94bf81c363d
+# システムの最小化を解除するため。(これがないとmanコマンドとかが使えない)
+RUN yes | unminimize
 
 # ネットワーク系のシステムコールを呼ぶかもしれないため
 EXPOSE 8080
