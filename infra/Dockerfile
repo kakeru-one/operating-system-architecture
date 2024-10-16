@@ -1,4 +1,3 @@
-# Stage 1: Base environment setup (Ubuntu + Go + Python)
 FROM --platform=linux/arm64 ubuntu:20.04
 
 # Install dependencies for Go and Python
